@@ -12,7 +12,6 @@ exports.create = async function(req, res) {
 };
 
 // Display list of all books
-
 exports.book_lists = async (req, res) => {
   try {
     const book_list = await Book.find();
@@ -22,10 +21,29 @@ exports.book_lists = async (req, res) => {
   }
 };
 
-// Delete Book
-exports.book_delete = async () => {
+exports.book_delete = async (req, res) => {
   try {
+    const book = await Book.findById(req.params.id);
+    book.remove();
+    res.json({
+      msg: "book removed",
+      book
+    });
   } catch (err) {
     res.status(500).send("Server Error");
+  }
+};
+
+// Get a Book
+exports.get_book = async (req, res) => {
+  try {
+    const book = await Book.findById(req.params.id);
+    if (book) {
+      res.json(book);
+    } else {
+      res.json({ msg: "book id not found" });
+    }
+  } catch (err) {
+    res.status(500).send("server error");
   }
 };
