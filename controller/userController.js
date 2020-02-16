@@ -1,9 +1,8 @@
 const User = require("../models/user");
 
 // create user
-const user = async (req, res) => {
+exports.create = async (req, res) => {
   const user = new User(req.body);
-
   try {
     await user.save();
     res.status(201).send(user);
@@ -12,4 +11,11 @@ const user = async (req, res) => {
   }
 };
 
-module.exports = user;
+exports.users = async (req, res) => {
+  try {
+    const users = await User.find();
+    res.json(users);
+  } catch (err) {
+    res.status(500).send("Server Error");
+  }
+};
