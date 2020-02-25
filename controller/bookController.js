@@ -37,7 +37,7 @@ exports.book_delete = async (req, res) => {
 // Get a Book
 exports.get_book = async (req, res) => {
   try {
-    const book = await Book.findById(req.params.id);
+    const book = await Book.findById(req.params.id).populate("user");
     if (book) {
       res.json(book);
     } else {
