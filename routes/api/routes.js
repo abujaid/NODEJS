@@ -1,10 +1,14 @@
 const bookController = require("../../controller/bookController");
 const userController = require("../../controller/userController");
+const authController = require("../../controller/authController");
+
 const express = require("express");
 const router = express.Router();
 
-// Book Routes
+// Auth route
+router.post("/auth", authController.auth);
 
+// Book Routes
 router.post("/books/create", bookController.create);
 router.get("/books/book_lists", bookController.book_lists);
 router.delete("/books/:id", bookController.book_delete);
