@@ -8,6 +8,7 @@ exports.auth = async (req, res) => {
   try {
     const { email, password } = req.body;
     let user = await User.findOne({ email });
+
     if (!user) {
       return res.status(400).json({
         msg: "Invalid Credentials"
@@ -19,7 +20,8 @@ exports.auth = async (req, res) => {
     }
     const payload = {
       user: {
-        id: user._id
+        id: user._id,
+        user: user.name
       }
     };
 

@@ -2,8 +2,11 @@ const Book = require("../models/book");
 
 // Create Book
 exports.create = async function(req, res) {
-  const book = new Book(req.body);
   try {
+    const book = await new Book({
+      ...req.body,
+      user: req.user.id
+    });
     await book.save();
     res.status(201).send(book);
   } catch (err) {
