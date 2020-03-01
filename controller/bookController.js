@@ -1,6 +1,7 @@
 const Book = require("../models/book");
 const User = require("../models/user");
 const path = require("path");
+const fs = require("fs");
 
 // Create Book
 exports.create = async function(req, res) {
@@ -35,11 +36,11 @@ exports.book_lists = async (req, res) => {
 exports.book_delete = async (req, res) => {
   try {
     const book = await Book.findById({ _id: req.params.id });
-    console.log(book);
     if (book.user.toString() !== req.user.id) {
       res.status(401).json({ msg: "User not authorized" });
     } else {
       book.remove();
+      fs.unlinkSync(book.image);
       res.json({
         msg: "book removed",
         book
