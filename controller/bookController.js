@@ -1,11 +1,15 @@
 const Book = require("../models/book");
 const User = require("../models/user");
+const path = require("path");
+
 // Create Book
 exports.create = async function(req, res) {
+  console.log(req.file.path);
   try {
     const book = await new Book({
       ...req.body,
-      user: req.user.id
+      user: req.user.id,
+      image: req.file.path
     });
     await book.save();
     res.status(201).send(book);
@@ -59,3 +63,6 @@ exports.get_book = async (req, res) => {
     res.status(500).send("server error");
   }
 };
+
+// update book
+exports.update_book = async (req, res) => {};

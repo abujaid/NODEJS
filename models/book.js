@@ -14,7 +14,9 @@ const bookSchema = new Schema({
   book_author: {
     type: String
   },
-
+  image: {
+    type: String
+  },
   date: {
     type: Date,
     default: Date.now
